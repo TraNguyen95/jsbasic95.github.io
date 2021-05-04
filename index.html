@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Bai 1</title>
+</head>
+<body>
+ <p>Bài 1 Nhập một số nguyên dương</p>
+
+    <input type="text" id="number">
+
+    <button type="button" onclick="KiemTraDuLieu()">Kiểm tra</button>
+
+    <p id="demo"></p>
+ <p>Bài 2 Nhập số phần tử của mảng</p>   
+
+    <input type="text" id="number2">
+
+    <button type="button" id = "btn2" >Nhập</button>
+
+    <p id="demo2"></p>
+
+<p>Bài 3 Nhập số 1 số điện thoại hợp lệ</p>   
+	<input type="text" id="number3">
+
+    <button type="button" id = "btn3" >Nhập</button>
+
+    <p id="demo3"></p>
+<p>Bài 4 Kiểm tra số cmnd bằng biểu thức chính quy</p>  
+	<span>Nhap vào các số cmnd cách nhau dấu ;</span><input type="text" id="number4">
+
+	<button type="button" id = "btn4" >Nhập</button>
+
+	<p id="demo4"></p>  
+
+   
+<p>Bài 5 Kiểm tra email bằng biểu thức chính quy</p>   
+	<span>Nhap vào các email cách nhau dấu ;</span><input type="text" id="number5">
+
+	<button type="button" id = "btn5" >Nhập</button>
+
+	<p id="demo5"></p> 
+
+<p>Bài 6 Kiểm tra 1 chuỗi</p>   
+	<span>Nhập 1 chuỗi</span><input type="text" id="number6">
+
+	<button type="button" id = "btn6" >Nhập</button>
+
+	<p id="demo6"></p> 	
+
+       
+    <script>
+        function KiemTraDuLieu() {
+            document.getElementById("demo").innerHTML = "";
+            var number = document.getElementById("number").value;
+            number = Number(number)
+            try{ 
+                if(number == ""){
+                    throw "Bạn chưa nhập giá trị";
+                }else if(isNaN(number)){
+                    throw "Giá trị bạn nhập không phải là một số";
+                }else if(number < 1){
+                    throw "Giá trị phải lớn hơn 0";
+                }else if(Number.isInteger(number) == false){
+                    throw "Giá trị vừa nhập giá trị không phải số nguyên";
+                }
+                document.getElementById("demo").innerHTML = "Hợp lệ";
+            }
+            catch(err){
+                document.getElementById("demo").innerHTML = err;
+            }
+        }
+
+       
+
+        var arr = []
+        
+        document.getElementById('btn2').onclick = () => {
+        	
+        	var number2 = document.getElementById("number2").value;
+
+        	number2 = parseInt(number2)
+        	
+        	if(number2 <= 5){
+        		for(var i = 0; i < number2; i++){
+        			var elem = prompt(`Phan tu thu ${i+1}`,'')
+        			arr.push(elem)
+        		}
+        	}else{
+        		alert('Không nhập quá 5 phần tử')
+        	}
+        	var tong = 0
+        	var tongNguyen = 0
+        	var tongTuNhien = 0
+        	arr.forEach( (element,index) => {
+        		document.getElementById("demo2").innerHTML += `Phan tu thu ${index+1}: ${element} <br>`
+        		if(isNaN(element)){
+
+        		}else{
+        			tong += Number(element)
+        		}
+        		if(Number.isInteger(Number(element))){
+        			tongNguyen += Number(element)
+        		}
+        		if(Number.isInteger(Number(element)) && Number(element) >= 0){
+        			tongTuNhien += Number(element)
+        		}
+        	} )
+        	
+        	document.getElementById("demo2").innerHTML += `<br>Tong so thuc cua mang: ${tong} <br> Tong so nguyen cua mang: ${tongNguyen} <br> Tong so tu nhien cua mang: ${tongTuNhien}`
+        	
+        	
+        }
+
+        // bai 3 
+
+        document.getElementById('btn3').onclick = () => {
+        	var kt = true
+        	var number3 = document.getElementById("number3").value;
+        	number3 = number3.split('')
+        	if(Number(number3[0]) == 0 && number3.length == 10){
+        		number3.forEach((element) => {
+	        		element = Number(element)
+	        		if(Number.isInteger(element)){
+	        			kt = true 
+	        		}else{
+	        			kt = false
+	        		}
+        		})
+        	}else{
+        		kt = false
+        	}
+        	
+        	if(kt == true){
+        		document.getElementById("demo3").innerHTML = 'So dien thoai nay hop le'
+        	}else{
+        		document.getElementById("demo3").innerHTML = 'So dien thoai nay khong hop le'
+        	}
+        }
+
+        // Bai 4
+        document.getElementById('btn4').onclick = () => {
+        	let aRegex = /^\d{9}$/
+       		var number4 = document.getElementById("number4").value;
+       		number4 = number4.split(';')
+       		var arrCmnd = ''
+       		console.log(number4)
+       		number4.forEach((element) => {
+       			if(aRegex.test(element)){
+       				console.log(1)
+       			}else{
+       				arrCmnd += element + ";"
+       			}
+       		})
+       		document.getElementById("demo4").innerHTML = `Nhung so cmnd khong hop le: ${arrCmnd}`
+        }
+
+        //bai 5
+        document.getElementById('btn5').onclick = () => {
+        	let bRegex = /^\D{3,10}[@]{1}\D{3,10}[.]{1}\D{3,6}/
+        	var number5 = document.getElementById("number5").value;
+        	number5 = number5.split(';')
+        	var str = ''
+        	number5.forEach((element) => {
+        		if(bRegex.test(element)){
+
+        		}else{
+        			str += element + ";"
+        		}
+        	})
+        	document.getElementById("demo5").innerHTML = `Nhung email khong hop le: ${str}`
+        }
+        
+        document.getElementById('btn6').onclick = () => {
+        	var soThucRegex = /^-{0,1}\d\.{0,1}\d$/
+        	var soNguyenRegex = /^-{0,1}\d$/
+        	var soTuNhienRegex = /^\d$/
+        	var number6 = document.getElementById("number6").value;
+        	var testSoThuc = soThucRegex.test(number6)
+        	var testSoNguyen = soNguyenRegex.test(number6)
+        	var testSoTuNhien = soTuNhienRegex.test(number6)
+        	if(testSoTuNhien){
+        		document.getElementById("demo6").innerHTML = `So Nhap vao la so Tu Nhien`
+        	}
+        	else if(testSoNguyen){
+        		document.getElementById("demo6").innerHTML = `So Nhap vao la so Nguyen`
+        	}
+        	else if(testSoThuc){
+        		document.getElementById("demo6").innerHTML = `So Nhap vao la so Thuc`
+        	}else{
+        		document.getElementById("demo6").innerHTML = `Khong phai so`
+        	}
+        	console.log(testSoTuNhien,testSoNguyen,testSoThuc)
+
+        }
+        
+		 
+		
+
+    </script>
+
+
+</body>
+</html>
